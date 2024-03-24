@@ -1,21 +1,42 @@
+//% FEATURES: embassy embassy-time-timg0 embassy-executor-thread embassy-generic-timers
+
 #![no_std]
 #![no_main]
+#![feature(type_alias_impl_trait)]
 
+use embassy_executor::Spawner;
+use embassy_time::{Duration, Timer};
 use esp_backtrace as _;
-use esp_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
-use esp_println::println;
+use esp_hal::{
+    clock::ClockControl,
+    embassy::{self},
+    peripherals::Peripherals,
+    prelude::*,
+    timer::TimerGroup,
+};
 
-#[entry]
-fn main() -> ! {
+#[embassy_executor::task]
+async fn run() {
+    loop {
+        esp_println::println!("Hello world from embassy using esp-hal-async!");
+        Timer::after(Duration::from_millis(1_000)).await;
+    }
+}
+
+#[main]
+async fn main(spawner: Spawner) -> ! {
+    esp_println::println!("Init!");
     let peripherals = Peripherals::take();
     let system = peripherals.SYSTEM.split();
+    let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
 
-    let clocks = ClockControl::max(system.clock_control).freeze();
-    let mut delay = Delay::new(&clocks);
+    let timg0 = TimerGroup::new(peripherals.TIMG0, &clocks);
+    embassy::init(&clocks, timg0);
 
-    println!("Hello world!");
+    spawner.spawn(run()).ok();
+
     loop {
-        println!("Loop...");
-        delay.delay_ms(500u32);
+        esp_println::println!("Bing!");
+        Timer::after(Duration::from_millis(5_000)).await;
     }
 }
