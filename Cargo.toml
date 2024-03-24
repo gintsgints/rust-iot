@@ -19,7 +19,7 @@ esp-backtrace = { version = "0.11.1", features = [
     "println",
 ] }
 esp-hal = { version = "0.16.1", features = [ "esp32c6", "embassy", "async", "embassy-executor-thread", "embassy-time-timg0" ] }
-esp-println = { version = "0.9.0", features = ["esp32c6", "log"] }
+esp-println = { version = "0.9.0", default-features = false, features = ["esp32c6", "jtag-serial", "log"] }
 esp-wifi = { version = "0.4.0", features = ["esp32c6", "async", "embassy-net", "wifi", "ipv6"] }
 static_cell = { version = "2.0", features = ["nightly"] }
 
