@@ -29,6 +29,7 @@ esp-println = { version = "0.9.1", default-features = false, features = [
     "esp32c6",
     "jtag-serial",
 ] }
+
 [profile.dev]
 # Rust debug is too slow. 
 # For debug builds always builds with some optimization
