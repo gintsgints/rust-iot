@@ -17,5 +17,5 @@ target = "riscv32imac-unknown-none-elf"
 build-std = ["core"]
 
 [env]
-SSID = "HUAWEI_B535_D07E"
-PASSWORD = "5QARY6LM6LR"
+SSID = "HUAWEI-B535-D07E"
+PASSWORD = "your_network_password"

@@ -49,8 +49,9 @@ async fn main(spawner: Spawner) {
     let client_config = Configuration::Client(ClientConfiguration {
         // ANCHOR_END: client_config_start
         ssid: SSID.try_into().unwrap(),
+        // if I put wrong password here connection fails
         password: PASSWORD.try_into().unwrap(),
-        // if I uncoment next line, connection fails
+        // and if I uncoment next line, connection fails
         auth_method: esp_wifi::wifi::AuthMethod::None,
         ..Default::default() // ANCHOR: client_config_end
     });
