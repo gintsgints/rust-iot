@@ -5,7 +5,7 @@ runner = "espflash flash --monitor"
 [build]
 rustflags = [
   "-C", "link-arg=-Tlinkall.x",
-
+  "-C", "link-arg=-Trom_functions.x",
   # Required to obtain backtraces (e.g. when using the "esp-backtrace" crate.)
   # NOTE: May negatively impact performance of produced code
   "-C", "force-frame-pointers",
@@ -15,3 +15,7 @@ target = "riscv32imac-unknown-none-elf"
 
 [unstable]
 build-std = ["core"]
+
+[env]
+SSID = "HUAWEI_B535_D07E"
+PASSWORD = "5QARY6LM6LR"
